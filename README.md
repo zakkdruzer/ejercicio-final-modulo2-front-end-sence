@@ -69,6 +69,7 @@ estructura inicial del proyecto
 render de cards y datos del clima
 vista detalle con pronóstico semanal
 visualizacion parte desde home
+cambios en README.md
 
 
 ## Repositorio
