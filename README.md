@@ -64,11 +64,12 @@ weather-frontend-m2/
 
 Para cumplir con la consigna se trabajó con commits descriptivos:
 
-```bash
-feat: estructura inicial del proyecto
-feat: render de cards y datos del clima
-feat: vista detalle con pronóstico semanal
-```
+
+estructura inicial del proyecto
+render de cards y datos del clima
+vista detalle con pronóstico semanal
+visualizacion parte desde home
+
 
 ## Repositorio
 
