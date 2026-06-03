@@ -1,7 +1,7 @@
 /* =========================================================
-  ESTILOS GENERALES DEL SITIO
-  - Se aplica una base para que el footer quede al fondo
-  - Se mejora la presentación visual general
+  ESTILOS GENERALES DEL DOCUMENTO
+  - Se usa flex para mantener el footer abajo
+  - Se define un fondo base suave
 ========================================================= */
 body {
   min-height: 100vh;
@@ -13,7 +13,6 @@ body {
 /* =========================================================
   MAIN FLEXIBLE
   - Hace que el contenido principal ocupe el espacio restante
-  - Así el footer no queda flotando en medio de la pantalla
 ========================================================= */
 main {
   flex: 1;
@@ -21,7 +20,7 @@ main {
 
 /* =========================================================
   HERO SECTION
-  - Ajusta la presentación visual del bloque principal
+  - Estilo base del título y descripción principal
 ========================================================= */
 .hero-section h1 {
   color: #212529;
@@ -32,17 +31,43 @@ main {
 }
 
 /* =========================================================
-  CONTENEDOR DE CIUDADES
-  - Por ahora solo dejamos una altura mínima visual
-  - En el commit 2 se llenará con cards reales
+  GRID DE LOCALIDADES
+  - Se asegura una altura visual mínima antes del render
 ========================================================= */
 #citiesGrid {
   min-height: 120px;
 }
 
 /* =========================================================
-  SECCIÓN DETALLE
-  - Le da un poco de separación visual respecto al resto
+  TARJETAS DEL CLIMA
+  - Añade animación suave para hover
+  - Mejora la percepción visual e interacción
+========================================================= */
+.weather-card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  border: none;
+}
+
+.weather-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+/* =========================================================
+  ICONO DEL CLIMA
+  - Aumenta el tamaño de los emojis del clima
+========================================================= */
+.weather-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+/* =========================================================
+  SECCIÓN DETALLE DE EJEMPLO
+  - Mantiene una separación visual para el bloque futuro
 ========================================================= */
 #detalle {
   background-color: #eef2f7;
@@ -50,7 +75,7 @@ main {
 
 /* =========================================================
   FOOTER
-  - Ajustes menores para la tipografía del pie de página
+  - Ajuste simple para evitar márgenes extra
 ========================================================= */
 footer p,
 footer small {
@@ -59,7 +84,7 @@ footer small {
 
 /* =========================================================
   ACCESIBILIDAD
-  - Mejora el foco visible al navegar con teclado
+  - Foco visible para enlaces y botones
 ========================================================= */
 a:focus,
 button:focus {
@@ -68,11 +93,15 @@ button:focus {
 }
 
 /* =========================================================
-  RESPONSIVE PARA PANTALLAS PEQUEÑAS
-  - Ajusta el tamaño del título principal en móviles
+  RESPONSIVE MÓVIL
+  - Ajusta tamaños en pantallas pequeñas
 ========================================================= */
 @media (max-width: 420px) {
   .display-5 {
+    font-size: 2rem;
+  }
+
+  .weather-icon {
     font-size: 2rem;
   }
 }

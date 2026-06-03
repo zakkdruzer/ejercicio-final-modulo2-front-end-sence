@@ -4,7 +4,17 @@ Proyecto frontend desarrollado como parte del Módulo 2.
 
 ## Descripción
 
-Este proyecto corresponde a una aplicación de clima en su primera versión (MVP), construida con HTML5 semántico, Bootstrap y JavaScript.
+Esta aplicación corresponde a la primera versión de una app de clima construida con HTML5 semántico, Bootstrap y JavaScript.
+
+## Estado actual del proyecto
+
+En este segundo avance ya se implementó:
+
+- Estructura semántica base.
+- Navbar y footer.
+- Render dinámico de localidades.
+- Grilla con 10 ciudades en cards Bootstrap.
+- Diseño responsive inicial.
 
 ## Tecnologías utilizadas
 
@@ -13,7 +23,7 @@ Este proyecto corresponde a una aplicación de clima en su primera versión (MVP
 - Bootstrap 5
 - JavaScript
 
-## Estructura inicial del proyecto
+## Estructura del proyecto
 
 ```bash
 weather-frontend-m2/
@@ -22,6 +32,7 @@ weather-frontend-m2/
 ├── css/
 │   └── styles.css
 └── js/
+    ├── data.js
     └── main.js
 ```
 
@@ -29,10 +40,6 @@ weather-frontend-m2/
 
 1. Descarga o clona este repositorio.
 2. Abre el archivo `index.html` en tu navegador.
-
-## Estado del proyecto
-
-Este commit corresponde a la estructura inicial del proyecto.
 
 ## Repositorio
 
