@@ -1,34 +1,46 @@
 /* =========================================================
   ARCHIVO PRINCIPAL DE JAVASCRIPT
-  - En este commit nos encargamos de:
-    1. Leer el arreglo de ciudades del archivo data.js
-    2. Renderizar una card por cada localidad
-    3. Mostrar la información básica del clima en Home
+  - Este archivo se encarga de:
+    1. Renderizar las cards de ciudades en Home
+    2. Detectar clic en una ciudad
+    3. Mostrar el detalle de la localidad
+    4. Renderizar el pronóstico semanal
+    5. Volver a la vista principal
 ========================================================= */
 
 /* =========================================================
-  REFERENCIA AL CONTENEDOR PRINCIPAL DE LAS CARDS
-  - Aquí insertaremos dinámicamente el HTML generado
+  REFERENCIAS A ELEMENTOS DEL DOM
+  - Guardamos los elementos importantes en constantes
+  - Así el código queda más limpio y fácil de mantener
 ========================================================= */
 const citiesGrid = document.getElementById("citiesGrid");
+const homeSection = document.getElementById("homeSection");
+const detailSection = document.getElementById("detailSection");
+const detailContainer = document.getElementById("detailContainer");
+const navHome = document.getElementById("navHome");
+const navDetail = document.getElementById("navDetail");
+const brandLink = document.getElementById("brandLink");
+
+/* =========================================================
+  VARIABLE GLOBAL PARA RECORDAR LA CIUDAD ACTUAL
+  - Será útil cuando el usuario pulse el enlace "Detalle"
+  - Solo funcionará si antes seleccionó una ciudad
+========================================================= */
+let currentCity = null;
 
 /* =========================================================
   FUNCIÓN: renderCities()
-  - Recorre el arreglo weatherData
+  - Recorre weatherData
   - Crea una card Bootstrap por cada ciudad
-  - Inserta cada card en el contenedor citiesGrid
+  - Inserta las cards en el contenedor principal
 ========================================================= */
 function renderCities() {
-  /* Limpiamos el contenedor antes de renderizar */
   citiesGrid.innerHTML = "";
 
-  /* Recorremos cada ciudad del arreglo */
   weatherData.forEach((city) => {
-    /* Creamos la columna Bootstrap que contendrá la card */
     const col = document.createElement("div");
     col.className = "col-12 col-sm-6 col-lg-4";
 
-    /* Insertamos el contenido HTML de la card */
     col.innerHTML = `
       <article class="card weather-card h-100 shadow-sm">
         <div class="card-body d-flex flex-column">
@@ -44,11 +56,11 @@ function renderCities() {
           <p class="text-secondary mb-3">${city.status}</p>
 
           <div class="mt-auto">
-            <!--
-              Este botón aún no tiene funcionalidad completa.
-              En el commit 3 lo usaremos para mostrar el detalle.
-            -->
-            <button type="button" class="btn btn-primary w-100">
+            <button
+              type="button"
+              class="btn btn-primary w-100"
+              data-city-id="${city.id}"
+            >
               Ver detalle
             </button>
           </div>
@@ -56,16 +68,212 @@ function renderCities() {
       </article>
     `;
 
-    /* Agregamos la card al contenedor principal */
     citiesGrid.appendChild(col);
+  });
+
+  addCardEvents();
+}
+
+/* =========================================================
+  FUNCIÓN: addCardEvents()
+  - Busca todos los botones de las cards
+  - Les agrega el evento click
+  - Al hacer clic se busca la ciudad correspondiente
+    y se muestra su detalle
+========================================================= */
+function addCardEvents() {
+  const buttons = document.querySelectorAll("[data-city-id]");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const cityId = button.getAttribute("data-city-id");
+      const selectedCity = weatherData.find((city) => city.id === cityId);
+
+      if (selectedCity) {
+        showDetail(selectedCity);
+      }
+    });
   });
 }
 
 /* =========================================================
-  EVENTO DOMContentLoaded
-  - Espera a que el HTML esté completamente cargado
-  - Luego ejecuta el render de las ciudades
+  FUNCIÓN: showDetail(city)
+  - Guarda la ciudad actual
+  - Oculta la sección Home
+  - Muestra la sección Detail
+  - Inserta el contenido del detalle y pronóstico semanal
+========================================================= */
+function showDetail(city) {
+  currentCity = city;
+
+  homeSection.style.display = "none";
+  detailSection.style.display = "block";
+
+  navHome.classList.remove("active");
+  navDetail.classList.add("active");
+
+  detailContainer.innerHTML = `
+    <!-- =====================================================
+      BLOQUE HERO DEL DETALLE
+      - Muestra nombre de la ciudad, región y estado actual
+    ====================================================== -->
+    <section class="detail-hero p-4 p-md-5 mb-4 shadow-sm">
+      <div class="row align-items-center g-4">
+        <div class="col-12 col-md-8">
+          <h2 id="detailTitle" class="display-6 fw-bold mb-2">${city.city}</h2>
+          <p class="lead mb-2">${city.region}</p>
+          <p class="mb-0">Estado actual: <strong>${city.status}</strong></p>
+        </div>
+
+        <div class="col-12 col-md-4 text-md-end">
+          <div class="weather-icon display-1" aria-hidden="true">${city.icon}</div>
+          <div class="h2 mb-0">${city.temp}°C</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+      BLOQUE DE DATOS CLIMÁTICOS PRINCIPALES
+      - Temperatura
+      - Humedad
+      - Viento
+    ====================================================== -->
+    <section class="mb-4">
+      <div class="row g-4">
+        <div class="col-12 col-md-4">
+          <article class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+              <h3 class="h6 text-secondary">Temperatura</h3>
+              <p class="display-6 fw-bold mb-0">${city.temp}°C</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <article class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+              <h3 class="h6 text-secondary">Humedad</h3>
+              <p class="display-6 fw-bold mb-0">${city.humidity}%</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <article class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+              <h3 class="h6 text-secondary">Viento</h3>
+              <p class="display-6 fw-bold mb-0">${city.wind} km/h</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+      BLOQUE DE PRONÓSTICO SEMANAL
+      - Se genera una card por cada día del arreglo forecast
+    ====================================================== -->
+    <section>
+      <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <h3 class="h4 mb-0">Pronóstico semanal</h3>
+        <span class="badge text-bg-primary">7 días</span>
+      </div>
+
+      <div class="row g-3">
+        ${city.forecast
+          .map(
+            (day) => `
+          <div class="col-12 col-sm-6 col-lg-4">
+            <article class="card border-0 shadow-sm h-100">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                  <h4 class="h6 mb-1">${day.day}</h4>
+                  <p class="mb-0 text-secondary">${day.status}</p>
+                </div>
+                <div class="text-end">
+                  <div class="weather-icon" aria-hidden="true">${day.icon}</div>
+                  <strong>${day.temp}°C</strong>
+                </div>
+              </div>
+            </article>
+          </div>
+        `,
+          )
+          .join("")}
+      </div>
+
+      <!-- ===================================================
+        BOTÓN PARA VOLVER A LA VISTA INICIAL
+      ==================================================== -->
+      <button type="button" class="btn btn-outline-primary back-btn" id="backButton">
+        Volver al inicio
+      </button>
+    </section>
+  `;
+
+  addBackEvent();
+  detailSection.scrollIntoView({ behavior: "smooth" });
+}
+
+/* =========================================================
+  FUNCIÓN: showHome()
+  - Oculta el detalle
+  - Muestra nuevamente la grilla de ciudades
+  - Actualiza el estado visual de la navbar
+========================================================= */
+function showHome() {
+  detailSection.style.display = "none";
+  homeSection.style.display = "block";
+
+  navDetail.classList.remove("active");
+  navHome.classList.add("active");
+
+  homeSection.scrollIntoView({ behavior: "smooth" });
+}
+
+/* =========================================================
+  FUNCIÓN: addBackEvent()
+  - Agrega el evento al botón dinámico "Volver al inicio"
+========================================================= */
+function addBackEvent() {
+  const backButton = document.getElementById("backButton");
+
+  if (backButton) {
+    backButton.addEventListener("click", showHome);
+  }
+}
+
+/* =========================================================
+  EVENTOS DE LA NAVBAR
+  - Home vuelve al listado principal
+  - La marca también vuelve a Home
+  - Detalle muestra la ciudad seleccionada actual, si existe
+========================================================= */
+navHome.addEventListener("click", (event) => {
+  event.preventDefault();
+  showHome();
+});
+
+brandLink.addEventListener("click", (event) => {
+  event.preventDefault();
+  showHome();
+});
+
+navDetail.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  if (currentCity) {
+    showDetail(currentCity);
+  }
+});
+
+/* =========================================================
+  INICIALIZACIÓN DE LA APP
+  - Al cargar el documento:
+    1. Renderizamos la grilla de ciudades
+    2. Dejamos la Home visible por defecto
 ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
   renderCities();
+  showHome();
 });

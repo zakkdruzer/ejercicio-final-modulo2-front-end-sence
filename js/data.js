@@ -1,10 +1,8 @@
 /* =========================================================
   BASE DE DATOS LOCAL DEL PROYECTO
-  - Aquí guardamos las localidades y su clima actual
-  - En este commit usaremos estos datos para renderizar
-    las cards de la página principal
-  - En el commit 3 también usaremos estos mismos datos
-    para mostrar el detalle y el pronóstico
+  - Cada ciudad incluye:
+    id, nombre, región, temperatura actual, estado, icono,
+    humedad, viento y pronóstico semanal
 ========================================================= */
 
 const weatherData = [
@@ -15,6 +13,17 @@ const weatherData = [
     temp: 28,
     status: "Soleado",
     icon: "☀️",
+    humidity: 32,
+    wind: 12,
+    forecast: [
+      { day: "Lunes", temp: 27, status: "Soleado", icon: "☀️" },
+      { day: "Martes", temp: 26, status: "Parcialmente nublado", icon: "⛅" },
+      { day: "Miércoles", temp: 24, status: "Nublado", icon: "☁️" },
+      { day: "Jueves", temp: 25, status: "Soleado", icon: "☀️" },
+      { day: "Viernes", temp: 23, status: "Viento leve", icon: "💨" },
+      { day: "Sábado", temp: 22, status: "Nublado", icon: "☁️" },
+      { day: "Domingo", temp: 28, status: "Soleado", icon: "☀️" },
+    ],
   },
   {
     id: "valparaiso",
@@ -23,6 +32,17 @@ const weatherData = [
     temp: 19,
     status: "Brisa costera",
     icon: "🌤️",
+    humidity: 68,
+    wind: 18,
+    forecast: [
+      { day: "Lunes", temp: 18, status: "Brisa costera", icon: "🌤️" },
+      { day: "Martes", temp: 17, status: "Nublado", icon: "☁️" },
+      { day: "Miércoles", temp: 18, status: "Despejado", icon: "🌤️" },
+      { day: "Jueves", temp: 16, status: "Llovizna", icon: "🌧️" },
+      { day: "Viernes", temp: 17, status: "Nublado", icon: "☁️" },
+      { day: "Sábado", temp: 19, status: "Despejado", icon: "🌤️" },
+      { day: "Domingo", temp: 20, status: "Soleado", icon: "☀️" },
+    ],
   },
   {
     id: "concepcion",
@@ -31,6 +51,22 @@ const weatherData = [
     temp: 16,
     status: "Nublado",
     icon: "☁️",
+    humidity: 74,
+    wind: 14,
+    forecast: [
+      { day: "Lunes", temp: 15, status: "Nublado", icon: "☁️" },
+      { day: "Martes", temp: 16, status: "Llovizna", icon: "🌧️" },
+      {
+        day: "Miércoles",
+        temp: 17,
+        status: "Parcialmente nublado",
+        icon: "⛅",
+      },
+      { day: "Jueves", temp: 15, status: "Nublado", icon: "☁️" },
+      { day: "Viernes", temp: 14, status: "Lluvia", icon: "🌧️" },
+      { day: "Sábado", temp: 16, status: "Nublado", icon: "☁️" },
+      { day: "Domingo", temp: 18, status: "Despejado", icon: "🌤️" },
+    ],
   },
   {
     id: "arica",
@@ -39,6 +75,17 @@ const weatherData = [
     temp: 25,
     status: "Despejado",
     icon: "🌤️",
+    humidity: 41,
+    wind: 9,
+    forecast: [
+      { day: "Lunes", temp: 25, status: "Despejado", icon: "🌤️" },
+      { day: "Martes", temp: 26, status: "Soleado", icon: "☀️" },
+      { day: "Miércoles", temp: 25, status: "Despejado", icon: "🌤️" },
+      { day: "Jueves", temp: 24, status: "Brisa", icon: "💨" },
+      { day: "Viernes", temp: 23, status: "Despejado", icon: "🌤️" },
+      { day: "Sábado", temp: 24, status: "Soleado", icon: "☀️" },
+      { day: "Domingo", temp: 25, status: "Despejado", icon: "🌤️" },
+    ],
   },
   {
     id: "iquique",
@@ -47,6 +94,17 @@ const weatherData = [
     temp: 22,
     status: "Costero",
     icon: "🌊",
+    humidity: 58,
+    wind: 16,
+    forecast: [
+      { day: "Lunes", temp: 21, status: "Costero", icon: "🌊" },
+      { day: "Martes", temp: 22, status: "Soleado", icon: "☀️" },
+      { day: "Miércoles", temp: 21, status: "Brisa", icon: "💨" },
+      { day: "Jueves", temp: 20, status: "Nublado", icon: "☁️" },
+      { day: "Viernes", temp: 21, status: "Despejado", icon: "🌤️" },
+      { day: "Sábado", temp: 22, status: "Soleado", icon: "☀️" },
+      { day: "Domingo", temp: 23, status: "Costero", icon: "🌊" },
+    ],
   },
   {
     id: "antofagasta",
@@ -55,6 +113,17 @@ const weatherData = [
     temp: 21,
     status: "Soleado",
     icon: "☀️",
+    humidity: 50,
+    wind: 13,
+    forecast: [
+      { day: "Lunes", temp: 20, status: "Soleado", icon: "☀️" },
+      { day: "Martes", temp: 21, status: "Despejado", icon: "🌤️" },
+      { day: "Miércoles", temp: 22, status: "Brisa", icon: "💨" },
+      { day: "Jueves", temp: 20, status: "Soleado", icon: "☀️" },
+      { day: "Viernes", temp: 19, status: "Nublado", icon: "☁️" },
+      { day: "Sábado", temp: 21, status: "Despejado", icon: "🌤️" },
+      { day: "Domingo", temp: 22, status: "Soleado", icon: "☀️" },
+    ],
   },
   {
     id: "temuco",
@@ -63,6 +132,17 @@ const weatherData = [
     temp: 14,
     status: "Lluvia",
     icon: "🌧️",
+    humidity: 81,
+    wind: 10,
+    forecast: [
+      { day: "Lunes", temp: 13, status: "Lluvia", icon: "🌧️" },
+      { day: "Martes", temp: 14, status: "Nublado", icon: "☁️" },
+      { day: "Miércoles", temp: 15, status: "Llovizna", icon: "🌦️" },
+      { day: "Jueves", temp: 13, status: "Lluvia", icon: "🌧️" },
+      { day: "Viernes", temp: 12, status: "Nublado", icon: "☁️" },
+      { day: "Sábado", temp: 14, status: "Despejado", icon: "🌤️" },
+      { day: "Domingo", temp: 15, status: "Parcialmente nublado", icon: "⛅" },
+    ],
   },
   {
     id: "punta-arenas",
@@ -71,6 +151,17 @@ const weatherData = [
     temp: 8,
     status: "Frío y viento",
     icon: "🌬️",
+    humidity: 76,
+    wind: 28,
+    forecast: [
+      { day: "Lunes", temp: 7, status: "Frío y viento", icon: "🌬️" },
+      { day: "Martes", temp: 8, status: "Nublado", icon: "☁️" },
+      { day: "Miércoles", temp: 9, status: "Despejado", icon: "🌤️" },
+      { day: "Jueves", temp: 7, status: "Viento fuerte", icon: "💨" },
+      { day: "Viernes", temp: 6, status: "Frío", icon: "🧊" },
+      { day: "Sábado", temp: 8, status: "Nublado", icon: "☁️" },
+      { day: "Domingo", temp: 9, status: "Despejado", icon: "🌤️" },
+    ],
   },
   {
     id: "puerto-montt",
@@ -79,6 +170,17 @@ const weatherData = [
     temp: 11,
     status: "Lluvioso",
     icon: "🌧️",
+    humidity: 87,
+    wind: 15,
+    forecast: [
+      { day: "Lunes", temp: 10, status: "Lluvioso", icon: "🌧️" },
+      { day: "Martes", temp: 11, status: "Nublado", icon: "☁️" },
+      { day: "Miércoles", temp: 12, status: "Llovizna", icon: "🌦️" },
+      { day: "Jueves", temp: 10, status: "Lluvia", icon: "🌧️" },
+      { day: "Viernes", temp: 9, status: "Frío", icon: "🧊" },
+      { day: "Sábado", temp: 11, status: "Nublado", icon: "☁️" },
+      { day: "Domingo", temp: 12, status: "Despejado", icon: "🌤️" },
+    ],
   },
   {
     id: "copiapo",
@@ -87,5 +189,16 @@ const weatherData = [
     temp: 30,
     status: "Caluroso",
     icon: "🥵",
+    humidity: 20,
+    wind: 11,
+    forecast: [
+      { day: "Lunes", temp: 29, status: "Caluroso", icon: "🥵" },
+      { day: "Martes", temp: 30, status: "Soleado", icon: "☀️" },
+      { day: "Miércoles", temp: 31, status: "Muy caluroso", icon: "🔥" },
+      { day: "Jueves", temp: 29, status: "Despejado", icon: "🌤️" },
+      { day: "Viernes", temp: 28, status: "Soleado", icon: "☀️" },
+      { day: "Sábado", temp: 30, status: "Caluroso", icon: "🥵" },
+      { day: "Domingo", temp: 31, status: "Muy caluroso", icon: "🔥" },
+    ],
   },
 ];

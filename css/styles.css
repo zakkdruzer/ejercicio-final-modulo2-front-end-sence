@@ -1,7 +1,7 @@
 /* =========================================================
-  ESTILOS GENERALES DEL DOCUMENTO
-  - Se usa flex para mantener el footer abajo
-  - Se define un fondo base suave
+  ESTILOS GENERALES
+  - Permiten que el footer quede abajo
+  - Dan base visual al proyecto
 ========================================================= */
 body {
   min-height: 100vh;
@@ -20,7 +20,7 @@ main {
 
 /* =========================================================
   HERO SECTION
-  - Estilo base del título y descripción principal
+  - Ajuste visual del bloque principal
 ========================================================= */
 .hero-section h1 {
   color: #212529;
@@ -32,16 +32,15 @@ main {
 
 /* =========================================================
   GRID DE LOCALIDADES
-  - Se asegura una altura visual mínima antes del render
+  - Altura mínima visual antes del render
 ========================================================= */
 #citiesGrid {
   min-height: 120px;
 }
 
 /* =========================================================
-  TARJETAS DEL CLIMA
-  - Añade animación suave para hover
-  - Mejora la percepción visual e interacción
+  CARDS DE CLIMA
+  - Efecto visual al pasar el mouse
 ========================================================= */
 .weather-card {
   transition:
@@ -58,7 +57,7 @@ main {
 
 /* =========================================================
   ICONO DEL CLIMA
-  - Aumenta el tamaño de los emojis del clima
+  - Tamaño de emojis o íconos climáticos
 ========================================================= */
 .weather-icon {
   font-size: 2.5rem;
@@ -66,16 +65,35 @@ main {
 }
 
 /* =========================================================
-  SECCIÓN DETALLE DE EJEMPLO
-  - Mantiene una separación visual para el bloque futuro
+  SECCIÓN DETALLE
+  - Comienza oculta
+  - Solo se muestra cuando el usuario selecciona una ciudad
 ========================================================= */
-#detalle {
-  background-color: #eef2f7;
+#detailSection {
+  display: none;
+}
+
+/* =========================================================
+  HERO DEL DETALLE
+  - Bloque destacado para la ciudad seleccionada
+========================================================= */
+.detail-hero {
+  background: linear-gradient(135deg, #0d6efd, #3ea0ff);
+  color: white;
+  border-radius: 1rem;
+}
+
+/* =========================================================
+  BOTÓN VOLVER
+  - Separación superior para mejorar la composición
+========================================================= */
+.back-btn {
+  margin-top: 1.5rem;
 }
 
 /* =========================================================
   FOOTER
-  - Ajuste simple para evitar márgenes extra
+  - Ajuste menor para evitar márgenes extra
 ========================================================= */
 footer p,
 footer small {
@@ -84,7 +102,7 @@ footer small {
 
 /* =========================================================
   ACCESIBILIDAD
-  - Foco visible para enlaces y botones
+  - Foco visible para navegación por teclado
 ========================================================= */
 a:focus,
 button:focus {
@@ -94,7 +112,7 @@ button:focus {
 
 /* =========================================================
   RESPONSIVE MÓVIL
-  - Ajusta tamaños en pantallas pequeñas
+  - Ajusta tamaños para pantallas pequeñas
 ========================================================= */
 @media (max-width: 420px) {
   .display-5 {

@@ -4,17 +4,20 @@ Proyecto frontend desarrollado como parte del Módulo 2.
 
 ## Descripción
 
-Esta aplicación corresponde a la primera versión de una app de clima construida con HTML5 semántico, Bootstrap y JavaScript.
+Esta aplicación corresponde a una app de clima construida con HTML5 semántico, Bootstrap y JavaScript.  
+Permite visualizar una grilla de localidades en la página principal y consultar el detalle de cada ciudad con pronóstico semanal.
 
-## Estado actual del proyecto
+## Funcionalidades implementadas
 
-En este segundo avance ya se implementó:
-
-- Estructura semántica base.
-- Navbar y footer.
-- Render dinámico de localidades.
-- Grilla con 10 ciudades en cards Bootstrap.
-- Diseño responsive inicial.
+- Home con 10 localidades en cards Bootstrap.
+- Visualización de clima actual por ciudad.
+- Interacción con JavaScript para ver detalle.
+- Vista de detalle con:
+  - temperatura,
+  - humedad,
+  - viento,
+  - pronóstico semanal.
+- Diseño responsive para móvil y escritorio.
 
 ## Tecnologías utilizadas
 
@@ -40,6 +43,7 @@ weather-frontend-m2/
 
 1. Descarga o clona este repositorio.
 2. Abre el archivo `index.html` en tu navegador.
+3. Haz clic en una ciudad para ver su detalle.
 
 ## Repositorio
 
