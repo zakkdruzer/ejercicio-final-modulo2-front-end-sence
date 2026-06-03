@@ -6,12 +6,12 @@
     3. Mostrar el detalle de la localidad
     4. Renderizar el pronóstico semanal
     5. Volver a la vista principal
+    6. Evitar que la página salte sola al detalle al cargar
 ========================================================= */
 
 /* =========================================================
   REFERENCIAS A ELEMENTOS DEL DOM
-  - Guardamos los elementos importantes en constantes
-  - Así el código queda más limpio y fácil de mantener
+  - Guardamos elementos importantes para usarlos varias veces
 ========================================================= */
 const citiesGrid = document.getElementById("citiesGrid");
 const homeSection = document.getElementById("homeSection");
@@ -22,9 +22,9 @@ const navDetail = document.getElementById("navDetail");
 const brandLink = document.getElementById("brandLink");
 
 /* =========================================================
-  VARIABLE GLOBAL PARA RECORDAR LA CIUDAD ACTUAL
-  - Será útil cuando el usuario pulse el enlace "Detalle"
-  - Solo funcionará si antes seleccionó una ciudad
+  VARIABLE GLOBAL
+  - Guarda la última ciudad seleccionada
+  - Sirve para reutilizar el enlace "Detalle" de la navbar
 ========================================================= */
 let currentCity = null;
 
@@ -32,7 +32,7 @@ let currentCity = null;
   FUNCIÓN: renderCities()
   - Recorre weatherData
   - Crea una card Bootstrap por cada ciudad
-  - Inserta las cards en el contenedor principal
+  - Inserta las cards dentro de citiesGrid
 ========================================================= */
 function renderCities() {
   citiesGrid.innerHTML = "";
@@ -76,10 +76,9 @@ function renderCities() {
 
 /* =========================================================
   FUNCIÓN: addCardEvents()
-  - Busca todos los botones de las cards
+  - Busca todos los botones "Ver detalle"
   - Les agrega el evento click
-  - Al hacer clic se busca la ciudad correspondiente
-    y se muestra su detalle
+  - Cuando se pulsa uno, se busca la ciudad correspondiente
 ========================================================= */
 function addCardEvents() {
   const buttons = document.querySelectorAll("[data-city-id]");
@@ -99,9 +98,9 @@ function addCardEvents() {
 /* =========================================================
   FUNCIÓN: showDetail(city)
   - Guarda la ciudad actual
-  - Oculta la sección Home
-  - Muestra la sección Detail
-  - Inserta el contenido del detalle y pronóstico semanal
+  - Oculta Home
+  - Muestra la sección de detalle
+  - Inserta temperatura, humedad, viento y pronóstico semanal
 ========================================================= */
 function showDetail(city) {
   currentCity = city;
@@ -114,8 +113,8 @@ function showDetail(city) {
 
   detailContainer.innerHTML = `
     <!-- =====================================================
-      BLOQUE HERO DEL DETALLE
-      - Muestra nombre de la ciudad, región y estado actual
+      HERO DEL DETALLE
+      - Bloque principal de la ciudad seleccionada
     ====================================================== -->
     <section class="detail-hero p-4 p-md-5 mb-4 shadow-sm">
       <div class="row align-items-center g-4">
@@ -133,7 +132,7 @@ function showDetail(city) {
     </section>
 
     <!-- =====================================================
-      BLOQUE DE DATOS CLIMÁTICOS PRINCIPALES
+      DATOS PRINCIPALES
       - Temperatura
       - Humedad
       - Viento
@@ -170,8 +169,8 @@ function showDetail(city) {
     </section>
 
     <!-- =====================================================
-      BLOQUE DE PRONÓSTICO SEMANAL
-      - Se genera una card por cada día del arreglo forecast
+      PRONÓSTICO SEMANAL
+      - Genera una card por cada día del arreglo forecast
     ====================================================== -->
     <section>
       <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
@@ -203,7 +202,7 @@ function showDetail(city) {
       </div>
 
       <!-- ===================================================
-        BOTÓN PARA VOLVER A LA VISTA INICIAL
+        BOTÓN PARA VOLVER A INICIO
       ==================================================== -->
       <button type="button" class="btn btn-outline-primary back-btn" id="backButton">
         Volver al inicio
@@ -212,14 +211,20 @@ function showDetail(city) {
   `;
 
   addBackEvent();
+
+  /* =======================================================
+    SCROLL CONTROLADO AL DETALLE
+    - Solo se hace cuando el usuario realmente elige una ciudad
+    - Así evitamos que ocurra automáticamente al cargar la página
+  ======================================================== */
   detailSection.scrollIntoView({ behavior: "smooth" });
 }
 
 /* =========================================================
   FUNCIÓN: showHome()
   - Oculta el detalle
-  - Muestra nuevamente la grilla de ciudades
-  - Actualiza el estado visual de la navbar
+  - Muestra nuevamente la Home
+  - Actualiza la navbar
 ========================================================= */
 function showHome() {
   detailSection.style.display = "none";
@@ -227,36 +232,55 @@ function showHome() {
 
   navDetail.classList.remove("active");
   navHome.classList.add("active");
-
-  homeSection.scrollIntoView({ behavior: "smooth" });
 }
 
 /* =========================================================
   FUNCIÓN: addBackEvent()
-  - Agrega el evento al botón dinámico "Volver al inicio"
+  - Agrega el evento al botón dinámico para volver al inicio
 ========================================================= */
 function addBackEvent() {
   const backButton = document.getElementById("backButton");
 
   if (backButton) {
-    backButton.addEventListener("click", showHome);
+    backButton.addEventListener("click", () => {
+      showHome();
+
+      /* =====================================================
+        SCROLL CONTROLADO A LA PARTE SUPERIOR
+        - Al volver al inicio, llevamos al usuario arriba
+      ====================================================== */
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
   }
 }
 
 /* =========================================================
-  EVENTOS DE LA NAVBAR
-  - Home vuelve al listado principal
-  - La marca también vuelve a Home
-  - Detalle muestra la ciudad seleccionada actual, si existe
+  EVENTOS DE NAVEGACIÓN
+  - Home vuelve al inicio sin recargar
+  - La marca también vuelve al inicio
+  - Detalle solo funciona si ya hay una ciudad seleccionada
 ========================================================= */
 navHome.addEventListener("click", (event) => {
   event.preventDefault();
   showHome();
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 });
 
 brandLink.addEventListener("click", (event) => {
   event.preventDefault();
   showHome();
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 });
 
 navDetail.addEventListener("click", (event) => {
@@ -269,11 +293,17 @@ navDetail.addEventListener("click", (event) => {
 
 /* =========================================================
   INICIALIZACIÓN DE LA APP
-  - Al cargar el documento:
-    1. Renderizamos la grilla de ciudades
-    2. Dejamos la Home visible por defecto
+  - Se ejecuta cuando el HTML termina de cargar
+  - Renderiza las ciudades
+  - Muestra Home por defecto
+  - Fuerza que la página comience arriba
 ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
   renderCities();
   showHome();
+
+  window.scrollTo({
+    top: 0,
+    behavior: "auto",
+  });
 });

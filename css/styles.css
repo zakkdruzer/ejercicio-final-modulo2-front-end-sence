@@ -1,7 +1,7 @@
 /* =========================================================
-  ESTILOS GENERALES
-  - Permiten que el footer quede abajo
-  - Dan base visual al proyecto
+  ESTILOS GENERALES DEL DOCUMENTO
+  - Se usa flex para que el footer quede al final
+  - Se define un color de fondo suave para toda la app
 ========================================================= */
 body {
   min-height: 100vh;
@@ -13,6 +13,7 @@ body {
 /* =========================================================
   MAIN FLEXIBLE
   - Hace que el contenido principal ocupe el espacio restante
+  - Esto evita que el footer quede a media pantalla
 ========================================================= */
 main {
   flex: 1;
@@ -20,7 +21,8 @@ main {
 
 /* =========================================================
   HERO SECTION
-  - Ajuste visual del bloque principal
+  - Ajusta la presentación del título principal
+  - También limita el ancho del texto descriptivo
 ========================================================= */
 .hero-section h1 {
   color: #212529;
@@ -32,15 +34,16 @@ main {
 
 /* =========================================================
   GRID DE LOCALIDADES
-  - Altura mínima visual antes del render
+  - Mantiene una altura mínima mientras se renderizan las cards
 ========================================================= */
 #citiesGrid {
   min-height: 120px;
 }
 
 /* =========================================================
-  CARDS DE CLIMA
-  - Efecto visual al pasar el mouse
+  TARJETAS DEL CLIMA
+  - Agregan una animación suave
+  - Mejoran la interacción visual al pasar el mouse
 ========================================================= */
 .weather-card {
   transition:
@@ -56,8 +59,8 @@ main {
 }
 
 /* =========================================================
-  ICONO DEL CLIMA
-  - Tamaño de emojis o íconos climáticos
+  ICONOS DEL CLIMA
+  - Aumenta el tamaño visual de los emojis o íconos
 ========================================================= */
 .weather-icon {
   font-size: 2.5rem;
@@ -66,8 +69,8 @@ main {
 
 /* =========================================================
   SECCIÓN DETALLE
-  - Comienza oculta
-  - Solo se muestra cuando el usuario selecciona una ciudad
+  - Comienza oculta al iniciar la aplicación
+  - JavaScript la mostrará cuando el usuario seleccione una ciudad
 ========================================================= */
 #detailSection {
   display: none;
@@ -76,6 +79,7 @@ main {
 /* =========================================================
   HERO DEL DETALLE
   - Bloque destacado para la ciudad seleccionada
+  - Usa un degradado azul para dar jerarquía visual
 ========================================================= */
 .detail-hero {
   background: linear-gradient(135deg, #0d6efd, #3ea0ff);
@@ -85,7 +89,7 @@ main {
 
 /* =========================================================
   BOTÓN VOLVER
-  - Separación superior para mejorar la composición
+  - Añade separación respecto al bloque de pronóstico
 ========================================================= */
 .back-btn {
   margin-top: 1.5rem;
@@ -93,7 +97,7 @@ main {
 
 /* =========================================================
   FOOTER
-  - Ajuste menor para evitar márgenes extra
+  - Ajuste para evitar márgenes innecesarios en textos internos
 ========================================================= */
 footer p,
 footer small {
@@ -102,7 +106,8 @@ footer small {
 
 /* =========================================================
   ACCESIBILIDAD
-  - Foco visible para navegación por teclado
+  - Mejora el foco visible al usar teclado
+  - Esto ayuda a la navegación y la UX básica
 ========================================================= */
 a:focus,
 button:focus {
@@ -111,8 +116,9 @@ button:focus {
 }
 
 /* =========================================================
-  RESPONSIVE MÓVIL
-  - Ajusta tamaños para pantallas pequeñas
+  AJUSTES RESPONSIVE PARA PANTALLAS PEQUEÑAS
+  - Optimiza tamaños para móviles cercanos a 420px
+  - Apoya el requisito de diseño responsive mobile-first
 ========================================================= */
 @media (max-width: 420px) {
   .display-5 {
