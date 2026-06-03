@@ -1,0 +1,78 @@
+/* =========================================================
+  ESTILOS GENERALES DEL SITIO
+  - Se aplica una base para que el footer quede al fondo
+  - Se mejora la presentación visual general
+========================================================= */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+}
+
+/* =========================================================
+  MAIN FLEXIBLE
+  - Hace que el contenido principal ocupe el espacio restante
+  - Así el footer no queda flotando en medio de la pantalla
+========================================================= */
+main {
+  flex: 1;
+}
+
+/* =========================================================
+  HERO SECTION
+  - Ajusta la presentación visual del bloque principal
+========================================================= */
+.hero-section h1 {
+  color: #212529;
+}
+
+.hero-section p {
+  max-width: 650px;
+}
+
+/* =========================================================
+  CONTENEDOR DE CIUDADES
+  - Por ahora solo dejamos una altura mínima visual
+  - En el commit 2 se llenará con cards reales
+========================================================= */
+#citiesGrid {
+  min-height: 120px;
+}
+
+/* =========================================================
+  SECCIÓN DETALLE
+  - Le da un poco de separación visual respecto al resto
+========================================================= */
+#detalle {
+  background-color: #eef2f7;
+}
+
+/* =========================================================
+  FOOTER
+  - Ajustes menores para la tipografía del pie de página
+========================================================= */
+footer p,
+footer small {
+  margin-bottom: 0;
+}
+
+/* =========================================================
+  ACCESIBILIDAD
+  - Mejora el foco visible al navegar con teclado
+========================================================= */
+a:focus,
+button:focus {
+  outline: 3px solid rgba(13, 110, 253, 0.35);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+  RESPONSIVE PARA PANTALLAS PEQUEÑAS
+  - Ajusta el tamaño del título principal en móviles
+========================================================= */
+@media (max-width: 420px) {
+  .display-5 {
+    font-size: 2rem;
+  }
+}
